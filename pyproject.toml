@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zen-assistant"
+version = "0.1.0"
+description = "ZEN: Personal, voice-first AI computer assistant engineered for Windows in Python 3.14"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "ZEN Development Team" }
+]
+keywords = ["ai", "assistant", "voice", "windows", "automation", "coding-agent"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    "httpx>=0.27.0",
+    "rich>=13.7.0",
+    "psutil>=5.9.0",
+    "python-dotenv>=1.0.0",
+    "beautifulsoup4>=4.12.0",
+]
+
+[project.optional-dependencies]
+voice = [
+    "edge-tts>=6.1.0",
+    "sounddevice>=0.4.6",
+    "numpy>=1.26.0",
+]
+voice-sapi = [
+    # Windows SAPI5 TTS via pyttsx3. Optional: Python 3.14 compatibility unconfirmed.
+    # Install with: pip install ".[voice-sapi]"
+    "pyttsx3>=2.90",
+]
+research = [
+    "duckduckgo-search>=6.0.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+all = [
+    "zen-assistant[voice,voice-sapi,research,dev]",
+]
+
+[project.scripts]
+zen = "zen.cli:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
